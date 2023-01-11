@@ -13,7 +13,7 @@ class StoreQuestionListRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreQuestionListRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:100',
-            'expiry_date' => 'required|date'
+            'expiry_date' => 'required|date_format:Y-m-d'
         ];
     }
 }

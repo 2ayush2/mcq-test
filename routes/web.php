@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', function () {
     return view('admin');
 });
-Route::get('/test', function () {
+Route::get('/test/{testid}', function () {
     return view('studentTest');
-});
+})->name('studentTest');
 Route::post('/test/{testid}', [StudentTest::class, 'store']);

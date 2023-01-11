@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Questionnaire;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\StudentTest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +16,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Authentication Module
+ */
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+});
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
+
+    Route::post('logout', [AuthController::class, 'logout']);
+    /**
+     * Questionnaire Module
+     */
     Route::get('questions', [Questionnaire::class, 'index']);
     Route::post('questions', [Questionnaire::class, 'store']);
 });
 
-Route::get('login', [AuthController::class, 'login']);
+/**
+ * Entry point for admin
+ */
+Route::get('admin', function () {
+    return view("");
+});
+
+/**
+ * Entry point for student
+ */
+Route::get('test/{testid}', function () {
+    return view("");
+});
+
+Route::get('test/{testid}', [StudentTest::class, 'store']);

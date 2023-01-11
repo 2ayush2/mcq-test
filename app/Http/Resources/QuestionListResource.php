@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\QuestionList;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class QuestionListResource extends JsonResource
@@ -16,9 +17,9 @@ class QuestionListResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "title" => $this->question,
-            "expire" => date("Y-m-d", $this->expire_date),
-            "mail" => $this->mail_status == 1 ? "Send" : "Not Send"
+            "title" => $this->title,
+            "expire" => $this->expiry_date,
+            "mail" => $this->mail_status == QuestionList::MAIL_STATUS_COMPLETE ? "Send" : "Not Send"
         ];
     }
 }

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStudentAnswerRequest;
-use App\Http\Requests\UpdateStudentAnswerRequest;
 use App\Models\StudentAnswer;
-use Illuminate\Http\Request;
 
 class StudentTest extends Controller
 {

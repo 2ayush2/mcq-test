@@ -17,4 +17,15 @@ class QuestionList extends Model
         'expiry_date' => 'date',
         'mail_status' => 'enum'
     ];
+
+    protected $fillable = [
+        'title',
+        'expiry_date'
+    ];
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    // protected $hidden = [];
 }

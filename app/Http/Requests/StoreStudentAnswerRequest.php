@@ -13,7 +13,7 @@ class StoreStudentAnswerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreStudentAnswerRequest extends FormRequest
     {
         return [
             'testid' => 'required',
-            'answers' => 'required'
+            'answers' => 'required|json|min:82'
         ];
     }
 }

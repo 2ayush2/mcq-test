@@ -17,4 +17,13 @@ class QuestionBank extends Model
         'options' => 'json',
         'type' => 'enum'
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'answer',
+    ];
 }
