@@ -18,7 +18,6 @@ class StudentAnswer extends Model
     const STATUS_ATTEMPTED = 1;
     const STATUS_COMPLETED = 2;
 
-
     /**
      * Bulk insert into StudentAnswer
      * 
@@ -27,7 +26,7 @@ class StudentAnswer extends Model
      */
     public static function bulkInsert(int $questionid)
     {
-        $studentList = Student::findAll();
+        $studentList = Student::get()->toArray();
         $dataList = [];
         foreach ($studentList as $sl) {
             $dataList[] = [

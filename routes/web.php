@@ -15,10 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Entry point for admin
+ */
 Route::get('/admin', function () {
     return view('admin');
 });
-Route::get('/test/{testid}', function () {
-    return view('studentTest');
-})->name('studentTest');
-Route::post('/test/{testid}', [StudentTest::class, 'store']);
+
+/**
+ * Entry point for student
+ */
+Route::get('/student/test/{testid}', function () {
+    return view('student');
+})->name('student.test');

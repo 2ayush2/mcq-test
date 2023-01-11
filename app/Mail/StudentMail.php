@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\Student;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -17,8 +16,8 @@ class StudentMail extends Mailable
      *
      * @return void
      */
-    private Student $student;
-    public function __construct(Student $student)
+    private array $student;
+    public function __construct(array $student)
     {
         $this->student = $student;
     }
@@ -30,6 +29,7 @@ class StudentMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.student.test');
+        return $this->subject("Student's MCQ Test Notification")
+            ->view('emails.studentTest', ["data" => $this->student]);
     }
 }

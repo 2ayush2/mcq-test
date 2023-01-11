@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuestionListRequest;
-use App\Http\Resources\QuestionListResource;
-use App\Jobs\SendMailJob;
 use App\Models\QuestionList;
-use App\Models\StudentAnswer;
 use App\Repositories\QuestionRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\JsonResponse;
@@ -58,7 +55,7 @@ class Questionnaire extends Controller
         } catch (\Exception $e) {
             return $this->responseError(
                 null,
-                /*$e->getMessage() ,*/
+                // $e->getMessage(),
                 "Unknown Error !!!",
                 JsonResponse::HTTP_INTERNAL_SERVER_ERROR
             );

@@ -31,20 +31,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
      */
     Route::get('questions', [Questionnaire::class, 'index']);
     Route::post('questions', [Questionnaire::class, 'store']);
+    Route::get('questions/email/{questionList}', [Questionnaire::class, 'email']);
 });
 
 /**
- * Entry point for admin
+ * Student answer submiting point
  */
-Route::get('admin', function () {
-    return view("");
-});
-
-/**
- * Entry point for student
- */
-Route::get('test/{testid}', function () {
-    return view("");
-});
-
-Route::get('test/{testid}', [StudentTest::class, 'store']);
+Route::post('/student/test/{student}Answer:code', [StudentTest::class, 'store']);

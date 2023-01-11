@@ -6,7 +6,6 @@ use App\Mail\StudentMail;
 use App\Models\Student;
 use App\Models\StudentAnswer;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,7 +36,7 @@ class SendMailJob implements ShouldQueue
     public function handle()
     {
         foreach ($this->testList as $sl) {
-            Mail::to($sl->email)
+            Mail::to($sl["email"])
                 ->send(new StudentMail($sl));
         }
     }

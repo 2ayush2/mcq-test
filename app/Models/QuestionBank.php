@@ -26,4 +26,17 @@ class QuestionBank extends Model
     protected $hidden = [
         'answer',
     ];
+
+    /**
+     * getRandomFiveQuestion select 5 random question for given type 
+     *
+     * @param String $type QuestionBank::TYPE_PHYSICS or QuestionBank::TYPE_CHEMISTRY
+     * @param int $rows Number of random rows to return
+     * @return Array
+     */
+    public static function getRandomFiveQuestion(String $type, int $rows)
+    {
+        // SELECT * FROM question_banks WHERE type=$type AND expiry_date>=now() ORDER BY RAND() LIMIT 1;
+        return QuestionBank::inRandomOrder()->select(['id'])->where('type', $type)->limit($rows)->get()->toArray();
+    }
 }

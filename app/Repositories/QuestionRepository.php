@@ -5,9 +5,12 @@ namespace App\Repositories;
 use App\Http\Resources\QuestionListResource;
 use App\Interfaces\CrudInterface;
 use App\Jobs\SendMailJob;
+use App\Models\QsnToBank;
+use App\Models\QuestionBank;
 use App\Models\QuestionList;
 use App\Models\StudentAnswer;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 
 class QuestionRepository implements CrudInterface
 {
@@ -18,20 +21,12 @@ class QuestionRepository implements CrudInterface
      * 
      * @return collections Array of QuestionList Collection
      */
-    public function getPaginatedData(int $perPage)
+    public function getPaginatedData(int $perPage): AnonymousResourceCollection
     {
-        // $dd = QuestionList::orderBy('id', 'desc')
-        //     // ->where("expiry_date", ">", "now()")
-        //     ->where("expiry_date", ">=", date("Y-m-d"))
+        // return QuestionList::orderBy('id', 'desc')
         //     ->paginate($perPage);
-        // dd($dd);
-        // die;
-        return QuestionList::orderBy('id', 'desc')
-            ->where("expiry_date", ">=", date("Y-m-d"))
-            ->paginate($perPage);
         return QuestionListResource::collection(
             QuestionList::orderBy('id', 'desc')
-                ->where("expiry_date", ">=", date("Y-m-d"))
                 ->paginate($perPage)
         );
     }
@@ -44,7 +39,22 @@ class QuestionRepository implements CrudInterface
      */
     public function create(array $data): QuestionListResource
     {
-        $newQuestion = QuestionList::create($data);
+        $newQuestion = DB::transaction(function () use ($data) {
+            $newQuestion = QuestionList::create($data);
+            $chemistry = QuestionBank::getRandomFiveQuestion(QuestionBank::TYPE_CHEMISTRY, QuestionList::NUMBER_OF_RND_QUESTIONS);
+            $physics = QuestionBank::getRandomFiveQuestion(QuestionBank::TYPE_PHYSICS, QuestionList::NUMBER_OF_RND_QUESTIONS);
+            $questionsList = array_merge(array_column($chemistry, "id"), array_column($physics, "id"));
+            // $questionsList = array_merge(array_pluck($chemistry, "id"), array_pluck($physics, "id"));
+            $qsnToBank = [];
+            foreach ($questionsList as $qlist) {
+                $qsnToBank[] = [
+                    "fk_qsn_id" => $newQuestion["id"],
+                    "fk_bank_id" => $qlist
+                ];
+            }
+            QsnToBank::insert($qsnToBank);
+            return $newQuestion;
+        });
         return new QuestionListResource($newQuestion);
     }
 
@@ -108,10 +118,19 @@ class QuestionRepository implements CrudInterface
         if ($questionList['status'] != QuestionList::MAIL_STATUS_PENDING) {
             return false;
         }
+
         StudentAnswer::bulkInsert($questionList['id']);
-        $data = StudentAnswer::join('student', 'student.id', '=', 'student_answers.fk_student_id')
-            ->get(['student.name', 'student.email', 'student_answers.code']);
-        dispatch(new SendMailJob($data));
+        $data = StudentAnswer::select(['students.name', 'students.email', 'student_answers.code'])->join('students', 'students.id', '=', 'student_answers.fk_student_id')
+            ->get()->toArray();
+        // $data = [[
+        //     "name" => "krishna acharya",
+        //     "email" => "voxot47051@tingn.com",
+        //     "code" => "49103a2a-91e5-11ed-8e06-60e32bd514d9"
+        // ]];
+        // Mail::to($data[0]["email"])
+        //     ->send(new StudentMail($data[0]));
+        // dispatch(new SendMailJob($data))->delay(now());
+        dispatch(new SendMailJob($data))->delay(now()->addSeconds(30));
         return true;
     }
 }
