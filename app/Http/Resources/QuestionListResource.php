@@ -19,7 +19,8 @@ class QuestionListResource extends JsonResource
             "id" => $this->id,
             "title" => $this->title,
             "expire" => $this->expiry_date,
-            "mail" => $this->mail_status == QuestionList::MAIL_STATUS_COMPLETE ? "Send" : "Not Send"
+            "mail" => $this->mail_status == QuestionList::MAIL_STATUS_COMPLETE ? "Send" : "Not Send",
+            "mailCode" => $this->mail_status
         ];
     }
 }

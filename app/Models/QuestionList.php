@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Scopes\ActiveScope;
+use App\Scopes\ActiveQuestionScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ class QuestionList extends Model
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope(new ActiveScope);
+        static::addGlobalScope(new ActiveQuestionScope);
     }
 
     const MAIL_STATUS_PENDING = 0;

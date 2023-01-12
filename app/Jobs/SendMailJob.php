@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Mail\StudentMail;
-use App\Models\Student;
-use App\Models\StudentAnswer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,7 +18,7 @@ class SendMailJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param StudentAnswer $testList
+     * @param Array $testList student's email,name and code
      * @return void
      */
     public function __construct(array $testList)
