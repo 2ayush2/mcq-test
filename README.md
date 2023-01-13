@@ -1,7 +1,8 @@
 #About MCQ
 
 To use this application please follow the steps:
-- Create database 'mysqltest'
+- Create database 'mcqtest'
+- Edit .env file as per your environment 
 - Enter into the project directory
 - Run command `php artisan migrate` to run migration
 - Run command `php artisan db:seed` to run seed
