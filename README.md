@@ -20,3 +20,5 @@ Student :
     Once email are send, student will receive link to the test. 
     Student can visit the link to attent test. Once all test are attempted student can submit it.
     Link are not valid once test is complete
+
+Enjoy using application
