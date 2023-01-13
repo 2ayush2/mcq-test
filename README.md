@@ -3,7 +3,9 @@
 To use this application please follow the steps:
 - Create database 'mcqtest'
 - Edit .env file as per your environment 
+- Set your env file for `QUEUE_CONNECTION=database`
 - Enter into the project directory
+- Run command `composer install` to run migration
 - Run command `php artisan migrate` to run migration
 - Run command `php artisan db:seed` to run seed
 - Run command `php artisan serve` to start you server
@@ -20,6 +22,8 @@ Admin :
 Student :
     Once email are send, student will receive link to the test. 
     Student can visit the link to attent test. Once all test are attempted student can submit it.
-    Link are not valid once test is complete
+    Link are not valid once test is complete.
+    The sample url for student is [http://localhost:8000/student/test/34526eb5-92c1-11ed-b160-60e32bd514d9](http://localhost:8000/student/test/34526eb5-92c1-11ed-b160-60e32bd514d9)
+    `34526eb5-92c1-11ed-b160-60e32bd514d9` code can vary depending to student
 
 Enjoy using application
