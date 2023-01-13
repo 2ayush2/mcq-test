@@ -25,10 +25,11 @@ class AnswerRepository
             "questions" => TestQuestionsResource::collection($questionList)
         ];
     }
+
     public function saveTest($data): bool
     {
         $studentAnswer = StudentAnswer::where("code", $data["code"])
-            ->where("status", StudentAnswer::STATUS_NOT_ATTEMPTED)
+            ->where("status", StudentAnswer::STATUS_ATTEMPTED)
             ->first();
         if (empty($studentAnswer)) {
             return false;

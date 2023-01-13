@@ -17,7 +17,7 @@ class StudentAnswer extends Model
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope(new ActiveTestScope);
+        // static::addGlobalScope(new ActiveTestScope);
     }
     protected $cast = [
         'answers' => 'json',
