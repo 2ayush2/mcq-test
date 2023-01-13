@@ -11,13 +11,7 @@ import { questionsPages } from 'links/pages';
 // Service
 import { createQuestion } from '../service';
 import { Box } from '@mui/system';
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Typography
-} from '@mui/material';
+import { Button, Card, CardContent, Typography } from '@mui/material';
 
 const schema = yup.object({
   title: yup.string().required().max(100).label('Title'),

@@ -6,6 +6,7 @@ import { Box, Button, Card, Typography } from '@mui/material';
 // Soft UI Dashboard React example components
 import { Table } from 'components/Table';
 import { questionsPages } from 'links';
+import { useSnackbar } from 'notistack';
 
 import {
   columns,
@@ -13,21 +14,25 @@ import {
   modelListInit,
   modelListEmpty
 } from '../model/list';
-import { getQuestionList } from '../service';
+import { getQuestionList, sendMail } from '../service';
 import { useState } from 'react';
 
 function QuestionsList() {
   const [questionList, setQuestion] = useState({
-    questions: null,
-    pg: {
-      size: 0,
-      pages: 0,
-      current: 0,
-      total: 0
-    }
+    questions: null
   });
   const history = useHistory();
-  const handleView = (id, name) => {};
+  const { enqueueSnackbar } = useSnackbar();
+  const handleView = async (id, name) => {
+    await sendMail(id).then((res) => {
+      if (res.flag) {
+        enqueueSnackbar('Mail send success', {
+          variant: 'success'
+        });
+        loadData(1);
+      }
+    });
+  };
   const handleCreate = (e, current) => {
     history.push(questionsPages.QUESTION_NEW);
   };
@@ -35,10 +40,11 @@ function QuestionsList() {
   async function loadData(page) {
     await getQuestionList({ page }).then((res) => {
       if (res.flag) {
-        const qdata = res.data.data;
-        if (Object.keys(qdata).length) {
+        const qdata = res.data;
+        console.log(qdata.data.length);
+        if (qdata.status) {
           setQuestion({
-            questions: qdata
+            questions: qdata.data
           });
         }
       }
@@ -46,9 +52,6 @@ function QuestionsList() {
   }
   useEffect(() => {
     loadData(1);
-    // return () => {
-    //     dispatch(setItemList({ items: [], pg: {} }));
-    // }
   }, []);
 
   const TableRender = () => {
@@ -58,7 +61,8 @@ function QuestionsList() {
           <Table columns={columns} rows={modelListInit()} />
         </div>
       );
-    } else if (questionList.questions == 0) {
+    } else if (questionList.questions.length == 0) {
+      console.log('current');
       return (
         <div>
           <Table columns={columns} rows={modelListEmpty()} />

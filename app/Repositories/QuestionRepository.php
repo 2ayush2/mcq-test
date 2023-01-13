@@ -115,22 +115,21 @@ class QuestionRepository implements CrudInterface
      */
     public function sendMail(QuestionList $questionList): bool
     {
-        if ($questionList['status'] != QuestionList::MAIL_STATUS_PENDING) {
+        if ($questionList['mail_status'] != QuestionList::MAIL_STATUS_PENDING) {
             return false;
         }
 
         StudentAnswer::bulkInsert($questionList['id']);
-        $data = StudentAnswer::select(['students.name', 'students.email', 'student_answers.code'])->join('students', 'students.id', '=', 'student_answers.fk_student_id')
+        $data = StudentAnswer::select(['students.name', 'students.email', 'student_answers.code'])
+            ->join('students', 'students.id', '=', 'student_answers.fk_student_id')
             ->get()->toArray();
-        // $data = [[
-        //     "name" => "krishna acharya",
-        //     "email" => "voxot47051@tingn.com",
-        //     "code" => "49103a2a-91e5-11ed-8e06-60e32bd514d9"
-        // ]];
         // Mail::to($data[0]["email"])
         //     ->send(new StudentMail($data[0]));
         // dispatch(new SendMailJob($data))->delay(now());
         dispatch(new SendMailJob($data))->delay(now()->addSeconds(30));
+        $ststus = $questionList->update([
+            "mail_status" => QuestionList::MAIL_STATUS_COMPLETE
+        ]);
         return true;
     }
 }

@@ -31,7 +31,7 @@ class AuthController extends Controller
                     "token" => $user->createToken("mcq")->plainTextToken
                 ], 'Logged In Successfully !');
             }
-            return $this->responseError(null, 'Invalid Email and Password !', JsonResponse::HTTP_UNAUTHORIZED);
+            return $this->responseError(null, 'Invalid Email and Password !');
         } catch (\Exception $e) {
             return $this->responseError(null, "Unknown Error !!!", JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

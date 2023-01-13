@@ -6,13 +6,7 @@ import App from "./App";
 import store from "./redux/store";
 import { SnackbarProvider } from 'notistack';
 import TokenService from "_services/token.service";
-import TimeAgo from 'javascript-time-ago'
 
-import en from 'javascript-time-ago/locale/en.json'
-import ru from 'javascript-time-ago/locale/ru.json'
-
-TimeAgo.addDefaultLocale(en)
-TimeAgo.addLocale(ru)
 TokenService.store = store;
 ReactDOM.render(
   <React.StrictMode>

@@ -1,30 +1,27 @@
-
 const questionsPages = {
-    QUESTIONS: "/",
-    QUESTION_NEW: "/create",
-}
-
-const sitePage = {
-    LOGIN: "/guest",
-}
-
-const pages = {
-    // BASE_URL: "/api",
-    // BASE_URL: "http://ventvoila.com/api/admin",
-    BASE_URL: "http://localhost:8000/api/",
-    // LOCAL_URL: "http://localhost:3000",
-    GUEST: "/guest",
-    HOME: "/",
-    ...sitePage,
-    ...questionsPages,
+  QUESTIONS: '/admin/questions',
+  QUESTION_NEW: '/admin/questions/create'
 };
 
-const guestPage = [
-    pages.LOGIN,
-];
+const sitePage = {
+  LOGIN: '/admin/guest'
+};
+
+const pages = {
+  BASE_URL: '/api',
+  // BASE_URL: "http://ventvoila.com/api/admin",
+  // BASE_URL: 'http://localhost:8000/api/',
+  // LOCAL_URL: "http://localhost:3000",
+  GUEST: '/admin/guest',
+  HOME: questionsPages.QUESTIONS,
+  ...sitePage,
+  ...questionsPages
+};
+
+const guestPage = [pages.LOGIN];
 
 const getFullUrl = (page) => {
-    return pages.LOCAL_URL + "#" + page;
-}
+  return pages.LOCAL_URL + '#' + page;
+};
 
-export { pages, sitePage,  questionsPages, guestPage, getFullUrl };
+export { pages, sitePage, questionsPages, guestPage, getFullUrl };

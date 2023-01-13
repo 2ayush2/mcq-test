@@ -20,8 +20,8 @@ class QuestionList extends Model
         static::addGlobalScope(new ActiveQuestionScope);
     }
 
-    const MAIL_STATUS_PENDING = 0;
-    const MAIL_STATUS_COMPLETE = 1;
+    const MAIL_STATUS_PENDING = 'p';
+    const MAIL_STATUS_COMPLETE = 'c';
     const NUMBER_OF_RND_QUESTIONS = 5;
 
     protected $cast = [
@@ -31,7 +31,8 @@ class QuestionList extends Model
 
     protected $fillable = [
         'title',
-        'expiry_date'
+        'expiry_date',
+        'mail_status'
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +42,11 @@ class QuestionList extends Model
     // protected $hidden = [];
 
 
+    /**
+     * Get the Question associated with the current Questionaries.
+     */
+    public function questionBank()
+    {
+        return $this->hasMany(QsnToBank::class, "fk_bank_id");
+    }
 }

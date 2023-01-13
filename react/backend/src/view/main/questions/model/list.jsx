@@ -61,8 +61,8 @@ const modelList = (list, handleView) => {
 const modelListEmpty = () => {
   return [
     {
-      name: [
-        { colSpan: '74', style: { textAlign: 'center' } },
+      title: [
+        { colSpan: '3', style: { textAlign: 'center' } },
         <Typography component="span" fontWeight="medium" p={20}>
           No data found
         </Typography>

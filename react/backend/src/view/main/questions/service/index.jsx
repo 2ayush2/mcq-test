@@ -33,7 +33,6 @@ async function getQuestionList(pages) {
   return await getApiRequest({
     url: '/questions',
     data: {
-      size: 10,
       ...pages
     }
   }).then((result) => {

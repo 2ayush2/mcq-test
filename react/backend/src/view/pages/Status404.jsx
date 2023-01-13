@@ -10,7 +10,6 @@ import {
   InputAdornment,
   styled
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 
 const MainContent = styled(Box)(

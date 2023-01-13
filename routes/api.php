@@ -20,21 +20,22 @@ use Illuminate\Support\Facades\Route;
  * Authentication Module
  */
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login'])->name('auth.login');
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
     /**
      * Questionnaire Module
      */
-    Route::get('questions', [Questionnaire::class, 'index']);
-    Route::post('questions', [Questionnaire::class, 'store']);
-    Route::get('questions/email/{questionList}', [Questionnaire::class, 'email']);
+    Route::get('questions', [Questionnaire::class, 'index'])->name('admin.test.list');
+    Route::post('questions', [Questionnaire::class, 'store'])->name('admin.test.add');
+    Route::get('questions/email/{questionList}', [Questionnaire::class, 'email'])->name('admin.test.email');
 });
 
 /**
  * Student answer submiting point
  */
-Route::post('/student/test/{student}Answer:code', [StudentTest::class, 'store']);
+Route::get('/student/test/{studentAnswer:code}', [StudentTest::class, 'questions'])->name('test.get');
+Route::post('/student/test/{studentAnswer:code}', [StudentTest::class, 'store'])->name('test.save');

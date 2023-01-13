@@ -4,9 +4,9 @@ const questionsPages = {
 };
 
 const pages = {
-    // BASE_URL: "/api",
+    BASE_URL: "/api",
     // BASE_URL: "http://ventvoila.com/api/admin",
-    BASE_URL: "http://localhost:8000/",
+    // BASE_URL: "http://localhost:8000/",
     // LOCAL_URL: "http://localhost:3000",
     HOME: "#",
     ...questionsPages,

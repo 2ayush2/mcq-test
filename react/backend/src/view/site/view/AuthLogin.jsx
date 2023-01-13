@@ -59,13 +59,14 @@ const AuthLogin = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const onSubmitHandler = async (fdata) => {
+    console.log(fdata)
     await getLogin(fdata).then((res) => {
       if (res.flag == true && res.data.status) {
         enqueueSnackbar('Login success', {
           variant: 'success'
         });
         TokenService.setUser({
-          ...(res.data.data)
+          ...res.data.data
         });
         history.push({
           pathname: pages.HOME
@@ -80,7 +81,7 @@ const AuthLogin = () => {
 
   return (
     <>
-      <form noValidate onSubmit={handleSubmit(onSubmitHandler)}>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Stack spacing={1}>

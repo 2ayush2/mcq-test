@@ -20,7 +20,7 @@ class CreateStudentAnswersTable extends Migration
             $table->integer('fk_question_id');
             $table->integer('score')->nullable()->default(null);
             $table->json('answers')->nullable()->default(null);
-            $table->enum('status', [0, 1, 2])->default(0); //0 => Test not attempted, 1 => Test has been attempetd, 2=> Test completed
+            $table->enum('status', ['p', 'a', 'c'])->default('p'); //p => Test not attempted, a => Test has been attempetd, c=> Test completed
             $table->timestamps();
             $table->index('fk_student_id');
             $table->index('fk_question_id');

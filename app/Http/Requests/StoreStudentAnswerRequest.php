@@ -24,8 +24,8 @@ class StoreStudentAnswerRequest extends FormRequest
     public function rules()
     {
         return [
-            'testid' => 'required',
-            'answers' => 'required|json|min:82'
+            'code' => 'required',
+            'answers' => 'required|min:10'
         ];
     }
 }

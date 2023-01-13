@@ -17,7 +17,7 @@ class CreateQuestionListsTable extends Migration
             $table->id();
             $table->string('title', 100);
             $table->date('expiry_date');
-            $table->enum('mail_status', [0, 1])->default(0); //0=>mail send, 1=> mail not send
+            $table->enum('mail_status', ['p', 'c'])->default('p'); //p=>mail not send, c=> mail send
             $table->timestamps();
             $table->index('expiry_date');
         });

@@ -18,13 +18,18 @@ use Illuminate\Support\Facades\Route;
 /**
  * Entry point for admin
  */
-Route::get('/admin', function () {
-    return view('admin');
+Route::prefix('/admin')->name('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin');
+    });
+    Route::get('{any}', function () {
+        return view('admin');
+    })->where('any', '.*');
 });
 
 /**
  * Entry point for student
  */
-Route::get('/student/test/{testid}', function () {
+Route::get('/student/test/{code}', function () {
     return view('student');
 })->name('student.test');
