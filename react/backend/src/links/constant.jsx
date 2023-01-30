@@ -8,6 +8,11 @@ const MailStatus = Object.freeze({
   COMPLETED: 'c'
 });
 
+const QuestionTypes = Object.freeze({
+  p: 'p',
+  c: 'c'
+});
+
 const MailStatusList = {
   [MailStatus.PENDING]: {
     color: 'info',
@@ -23,4 +28,13 @@ const MailStatusList = {
   }
 };
 
-export { MailStatusList, MailStatus };
+const QuestionTypesList = {
+  [QuestionTypes.p]: {
+    color: 'info'
+  },
+  [QuestionTypes.c]: {
+    color: 'primary'
+  }
+};
+
+export { MailStatusList, MailStatus, QuestionTypesList };

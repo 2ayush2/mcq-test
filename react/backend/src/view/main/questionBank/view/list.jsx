@@ -14,32 +14,29 @@ import {
   modelListInit,
   modelListEmpty
 } from '../model/list';
-import { getQuestionList, sendMail } from '../service';
+import { getQuestionBank, deleteQuestion } from '../service';
 import { useState } from 'react';
 import { pages } from 'links';
 
-function QuestionsList() {
+function QuestionsBank() {
   const [questionList, setQuestion] = useState({
     questions: null
   });
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const handleView = async (id, name) => {
-    await sendMail(id).then((res) => {
+    await deleteQuestion(id).then((res) => {
       if (res.flag) {
-        enqueueSnackbar('Mail send success', {
+        enqueueSnackbar('Question delete success', {
           variant: 'success'
         });
         loadData(1);
       }
     });
   };
-  const handleCreate = (e, current) => {
-    history.push(questionsPages.QUESTION_NEW);
-  };
 
   async function loadData(page) {
-    await getQuestionList({ page }).then((res) => {
+    await getQuestionBank({ page }).then((res) => {
       if (res.flag) {
         const qdata = res.data;
         console.log(qdata.data.length);
@@ -89,17 +86,12 @@ function QuestionsList() {
         alignItems="center"
         p={3}
       >
-        <Typography variant="h3">{'Questionaries'}</Typography>
-        <div>
-          <Link to={pages.QUESTION_BANK}>
-            <Button variant="contained" color="info">
-              Question Bank
-            </Button>
-          </Link>
-          <Button variant="contained" sx={{ ml: 2 }} onClick={handleCreate}>
-            Create
+        <Typography variant="h3">{'Questions Bank'}</Typography>
+        <Link to={pages.QUESTIONS}>
+          <Button variant="contained" color="info">
+            Questionaries
           </Button>
-        </div>
+        </Link>
       </Box>
       <Box>
         <TableRender />
@@ -108,4 +100,4 @@ function QuestionsList() {
   );
 }
 
-export default QuestionsList;
+export default QuestionsBank;

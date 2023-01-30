@@ -39,4 +39,10 @@ class QuestionBank extends Model
         // SELECT * FROM question_banks WHERE type=$type AND expiry_date>=now() ORDER BY RAND() LIMIT 1;
         return QuestionBank::inRandomOrder()->select(['id'])->where('type', $type)->limit($rows)->get()->toArray();
     }
+
+    public function getAnswer()
+    {
+        $ans = json_decode($this->options, true);
+        return $ans[$this->answer];
+    }
 }

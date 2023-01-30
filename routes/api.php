@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
      * Question Bank Module
      */
     Route::get('qbank', [QsnBank::class, 'index'])->name('admin.qbank.list');
-    Route::post('qbank', [QsnBank::class, 'delete'])->name('admin.qbank.add');
+    Route::delete('qbank/{id}', [QsnBank::class, 'delete'])->name('admin.qbank.delete');
 });
 
 /**

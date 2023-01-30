@@ -5,7 +5,7 @@
   "author": "Shree Krishna Acharya",
   "license": "MIT Licenses",
   "description": "",
-  "homepage": "http://localhost/static/",
+  "homepage": "http://localhost/",
   "dependencies": {
     "@ant-design/colors": "^4.0.0-alpha.0",
     "@ant-design/icons": "^4.0.0-rc.0",

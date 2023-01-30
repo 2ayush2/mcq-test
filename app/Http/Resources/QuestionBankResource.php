@@ -17,8 +17,11 @@ class QuestionBankResource extends JsonResource
         return [
             "id" => $this->id,
             "question" => $this->question,
+            "answerId" => $this->answer,
+            "answer" => $this->getAnswer(),
             "options" => $this->options,
             "type" => $this->type == 'p' ? "Physics" : "Chemistry",
+            "typeCode" => $this->type
         ];
     }
 }
