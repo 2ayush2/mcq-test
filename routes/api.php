@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\QsnBank;
 use App\Http\Controllers\Api\Questionnaire;
 use App\Http\Controllers\Api\StudentTest;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('questions', [Questionnaire::class, 'index'])->name('admin.test.list');
     Route::post('questions', [Questionnaire::class, 'store'])->name('admin.test.add');
     Route::get('questions/email/{questionList}', [Questionnaire::class, 'email'])->name('admin.test.email');
+
+    /**
+     * Question Bank Module
+     */
+    Route::get('qbank', [QsnBank::class, 'index'])->name('admin.qbank.list');
+    Route::post('qbank', [QsnBank::class, 'delete'])->name('admin.qbank.add');
 });
 
 /**
