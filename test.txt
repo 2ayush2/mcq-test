@@ -1,6 +1,10 @@
 this is example
 this is also example
 
+<<<<<<< HEAD
 
 this is change made in f1
 
+=======
+this is checge mage in f1
+>>>>>>> f2
