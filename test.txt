@@ -2,9 +2,13 @@ this is example
 this is also example
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 this is change made in f1
 
 =======
 this is checge mage in f1
 >>>>>>> f2
+=======
+this is checge mage in f1
+>>>>>>> 502c722 (adding to change)
