@@ -49,4 +49,9 @@ class QuestionList extends Model
     {
         return $this->hasMany(QsnToBank::class, "fk_bank_id");
     }
+
+    public function getMailStatus()
+    {
+        return $this->mail_status == self::MAIL_STATUS_COMPLETE ? "Send" : "Not Send";
+    }
 }

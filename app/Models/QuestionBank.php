@@ -45,4 +45,8 @@ class QuestionBank extends Model
         $ans = json_decode($this->options, true);
         return $ans[$this->answer];
     }
+    public function getTypeName()
+    {
+        return $this->type == 'p' ? "Physics" : "Chemistry";
+    }
 }

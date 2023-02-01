@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\StudentTest;
-use App\Models\StudentAnswer;
+use App\Http\Controllers\Web\Questionnaire;
+use App\Http\Controllers\Web\QsnBank;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +27,36 @@ Route::prefix('/admin')->name('admin')->group(function () {
     })->where('any', '.*');
 });
 
+
 /**
  * Entry point for student
  */
 Route::get('/student/test/{code}', function () {
     return view('student');
 })->name('student.test');
+
+
+Route::group(["middleware" => "guest"], function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'store']);
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store']);
+});
+
+Route::group(["middleware" => "auth"], function () {
+    Route::post('/logout', [LogoutController::class, 'store'])->name('logout');
+
+    //routes for question banks
+    Route::get('/qbank', [QsnBank::class, 'index'])->name('qbank.list');
+    Route::delete('/qbank', [QsnBank::class, 'delete'])->name('qbank.delete');
+
+    //rout for question sets
+    Route::get('/questions', [Questionnaire::class, 'index'])->name('questions.list');
+    Route::get('/questions/create', [Questionnaire::class, 'create'])->name('questions.create');
+    Route::post('/questions', [Questionnaire::class, 'store'])->name('questions.store');
+    Route::get('/questions/email/{id}', [Questionnaire::class, 'email'])->name('questions.email');
+});
+Route::view('/home', "home.index")->name('home');
+Route::get('/', function () {
+    return view('post.index');
+});
