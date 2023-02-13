@@ -37,7 +37,7 @@ class QuestionBankRepository implements CrudInterface
      */
     public function create(array $data): QuestionBankResource
     {
-        return new QuestionBankResource(QuestionBank::created($data));;
+        return new QuestionBankResource(QuestionBank::create($data));;
     }
     /**
      * Delete QuestionBank.

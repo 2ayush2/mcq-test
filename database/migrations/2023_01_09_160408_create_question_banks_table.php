@@ -9,7 +9,7 @@ class CreateQuestionBanksTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return voidn 
+     * @return void
      */
     public function up()
     {

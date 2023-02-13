@@ -36,7 +36,7 @@
             <td> {{$bank->getAnswer()}} </td>
             <td> {{$bank->getTypeName()}} </td>
             <td>
-                <form action="{{route('qbanks.delete', $bank->id)}}" method="POST">
+                <form action="{{route('qbank.delete', $bank->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-danger"> Delete </button>

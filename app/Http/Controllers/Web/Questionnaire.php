@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuestionListRequest;
 use App\Models\QuestionList;
 use App\Repositories\QuestionRepository;
 use App\Traits\ResponseTrait;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class Questionnaire extends Controller
@@ -39,7 +38,7 @@ class Questionnaire extends Controller
     {
         $perPage = isset($request->perPage) ? intval($request->perPage) : 10;
         $questions = $this->questionRepository->getPaginatedData($perPage);
-        return view("questions.list", compact("questions"));
+        return view("questions.index", compact("questions"));
     }
 
     /**
@@ -48,18 +47,19 @@ class Questionnaire extends Controller
      * @param  \App\Http\Requests\StoreQuestionListRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(StoreQuestionListRequest $request): JsonResponse
+    public function store(StoreQuestionListRequest $request)
     {
+        $result = false;
         try {
             $data =  $request->only(['title', 'expiry_date']);
-            return $this->responseSuccess($this->questionRepository->create($data));
+            $result = $this->questionRepository->create($data);
         } catch (\Exception $e) {
-            return $this->responseError(
-                null,
-                // $e->getMessage(),
-                "Unknown Error !!!",
-                JsonResponse::HTTP_INTERNAL_SERVER_ERROR
-            );
+            // error handeling
+        }
+        if ($result) {
+            return redirect()->route('questions.list')->with(['success' => 'Data created!']);
+        } else {
+            return redirect()->route('questions.list')->with(['error' => 'Data not created!']);
         }
     }
 
@@ -69,11 +69,12 @@ class Questionnaire extends Controller
      * @param  \App\Models\QuestionList  $questionList
      * @return \Illuminate\Http\JsonResponse
      */
-    public function email(QuestionList $questionList): JsonResponse
+    public function email(QuestionList $questionList)
     {
         if ($this->questionRepository->sendMail($questionList)) {
-            return $this->responseSuccess([]);
+            return redirect()->route('questions.list')->with(['success' => 'Mail send success!']);
+        } else {
+            return redirect()->route('questions.list')->with(['error' => 'Mail send failed!']);
         }
-        return $this->responseError(null, "Mail not send", JsonResponse::HTTP_BAD_REQUEST);
     }
 }

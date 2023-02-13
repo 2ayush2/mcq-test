@@ -32,7 +32,8 @@ class Questionnaire extends Controller
     }
     /**
      * Display a listing of the questions.
-     *
+     * 
+     * @param  \Illuminate\Http\Requests $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request): JsonResponse

@@ -9,12 +9,15 @@
             <button type="button" class="close" data-dismiss="alert">× </button>
             {{Session::get('success')}}
         </div>
-        @else
+        @elseif(Session::has('failed'))
         <div class="alert alert-danger alert-dismissible">
             <button type="button" class="close" data-dismiss="alert">× </button>
             {{Session::get('failed')}}
         </div>
         @endif
+    </div>
+    <div class="col-xl-6 text-right">
+        <a href="{{route('questions.create')}}" class="btn btn-success "> Add New </a>
     </div>
 </div>
 
@@ -28,14 +31,15 @@
     </thead>
     <tbody>
 
-        @if(count($banks) > 0)
-        @foreach($banks as $bank)
+        @if(count($questions) > 0)
+        @foreach($questions as $bank)
         <tr>
             <td> {{$bank->id}} </td>
             <td> {{$bank->title}} </td>
+            <td> {{$bank->expiry_date}} </td>
             <td> {{$bank->getMailStatus()}} </td>
             <td>
-                <a href="{{route('articles.show', $article->id)}}" class="btn btn-sm btn-info"> View </a>
+                <a href="{{route('questions.email', $bank->id)}}" class="btn btn-sm btn-info"> Send </a>
             </td>
         </tr>
         @endforeach
@@ -43,5 +47,5 @@
     </tbody>
 </table>
 
-{!! $banks->links() !!}
+{!! $questions->links() !!}
 @endsection
