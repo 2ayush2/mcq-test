@@ -32,7 +32,7 @@ class StudentTest extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreStudentAnswerRequest  $request
+     * @param  \App\Models\StudentAnswer $studentAnswer
      * @return \Illuminate\Http\JsonResponse
      */
     public function questions(StudentAnswer $studentAnswer): JsonResponse

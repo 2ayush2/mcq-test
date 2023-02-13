@@ -18,7 +18,7 @@ class AuthController extends Controller
     /**
      *  Authencating user for login.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function login(LoginRequest $request): JsonResponse

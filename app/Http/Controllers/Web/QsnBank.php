@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreStudentAnswerRequest;
-use App\Models\QuestionBank;
-use App\Models\StudentAnswer;
-use App\Repositories\AnswerRepository;
+use App\Http\Resources\QuestionBankResource;
 use App\Repositories\QuestionBankRepository;
 use App\Traits\ResponseTrait;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class QsnBank extends Controller
@@ -36,13 +32,13 @@ class QsnBank extends Controller
     /**
      * Display a listing of the questions.
      *
-     * @param  \Illuminate\Http\Requests $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $perPage = isset($request->perPage) ? intval($request->perPage) : 10;
-        return $this->responseSuccess($this->questionBankRepository->getPaginatedData($perPage));
+        $banks = $this->questionBankRepository->getPaginatedData($perPage);
+        return view("bank.index", compact("banks"));
     }
 
 
@@ -56,8 +52,9 @@ class QsnBank extends Controller
     {
         $result = $this->questionBankRepository->delete($id);
         if ($result) {
-            return $this->responseSuccess($result);
+            return redirect()->route('qbank.list')->with(['success' => 'Data deleted!']);
+        } else {
+            return redirect()->route('qbank.list')->with(['error' => 'Data not deleted!']);
         }
-        return $this->responseError($result);
     }
 }

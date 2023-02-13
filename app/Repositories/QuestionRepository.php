@@ -123,11 +123,8 @@ class QuestionRepository implements CrudInterface
         $data = StudentAnswer::select(['students.name', 'students.email', 'student_answers.code'])
             ->join('students', 'students.id', '=', 'student_answers.fk_student_id')
             ->get()->toArray();
-        // Mail::to($data[0]["email"])
-        //     ->send(new StudentMail($data[0]));
-        // dispatch(new SendMailJob($data))->delay(now());
-        dispatch(new SendMailJob($data))->delay(now()->addSeconds(30));
-        $ststus = $questionList->update([
+        dispatch(new SendMailJob($data))->delay(now());
+        $questionList->update([
             "mail_status" => QuestionList::MAIL_STATUS_COMPLETE
         ]);
         return true;
