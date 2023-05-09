@@ -7,6 +7,7 @@ const Auth = ({ children }) => {
     const userModel = TokenService.getUser();
     const location = useLocation();
     const history = useHistory();
+
     function checkLogin() {
         if (userModel && userModel.isLogin) {
             if (guestPage.includes(location.pathname)) {
@@ -19,10 +20,9 @@ const Auth = ({ children }) => {
                 return false;
             }
         }
-        return (
-            <div key="AuthController">
-                {children}
-            </div>
+        return ( <
+            div key = "AuthController" > { children } <
+            /div>
         );
     }
     console.log("I am auth");
